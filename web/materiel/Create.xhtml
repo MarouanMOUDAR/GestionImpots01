@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MaterielCreateDlg" widgetVar="MaterielCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMaterielTitle}">
+            <h:form id="MaterielCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{materielController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMaterielLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{materielController.selected.nom}" title="#{bundle.CreateMaterielTitle_nom}" />
+                        <p:outputLabel value="#{bundle.CreateMaterielLabel_model}" for="model" />
+                        <p:selectOneMenu id="model" value="#{materielController.selected.model}" >
+                            <f:selectItems value="#{modelController.itemsAvailableSelectOne}"
+                                           var="modelItem"
+                                           itemValue="#{modelItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMaterielLabel_etat}" for="etat" />
+                        <p:selectOneMenu id="etat" value="#{materielController.selected.etat}" >
+                            <f:selectItems value="#{etatController.itemsAvailableSelectOne}"
+                                           var="etatItem"
+                                           itemValue="#{etatItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMaterielLabel_enPanne}" for="enPanne" />
+                        <p:selectOneMenu id="enPanne" value="#{materielController.selected.enPanne}" >
+                            <f:selectItems value="#{enPanneController.itemsAvailableSelectOne}"
+                                           var="enPanneItem"
+                                           itemValue="#{enPanneItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMaterielLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{materielController.selected.id}" title="#{bundle.CreateMaterielTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{materielController.create}" value="#{bundle.Save}" update="display,:MaterielListForm:datalist,:growl" oncomplete="handleSubmit(args,'MaterielCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MaterielCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

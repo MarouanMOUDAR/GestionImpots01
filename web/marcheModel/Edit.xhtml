@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MarcheModelEditDlg" widgetVar="MarcheModelEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditMarcheModelTitle}">
+            <h:form id="MarcheModelEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{marcheModelController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditMarcheModelLabel_dateReforme}" for="dateReforme" />
+                        <p:calendar id="dateReforme" pattern="MM/dd/yyyy" value="#{marcheModelController.selected.dateReforme}" title="#{bundle.EditMarcheModelTitle_dateReforme}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditMarcheModelLabel_marche}" for="marche" />
+                        <p:selectOneMenu id="marche" value="#{marcheModelController.selected.marche}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{marcheController.itemsAvailableSelectOne}"
+                                           var="marcheItem"
+                                           itemValue="#{marcheItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMarcheModelLabel_model}" for="model" />
+                        <p:selectOneMenu id="model" value="#{marcheModelController.selected.model}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{modelController.itemsAvailableSelectOne}"
+                                           var="modelItem"
+                                           itemValue="#{modelItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditMarcheModelLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{marcheModelController.selected.id}" title="#{bundle.EditMarcheModelTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{marcheModelController.update}" value="#{bundle.Save}" update="display,:MarcheModelListForm:datalist,:growl" oncomplete="handleSubmit(args, 'MarcheModelEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MarcheModelEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

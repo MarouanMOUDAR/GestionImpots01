@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MarcheMaterielCreateDlg" widgetVar="MarcheMaterielCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateMarcheMaterielTitle}">
+            <h:form id="MarcheMaterielCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{marcheMaterielController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateMarcheMaterielLabel_marche}" for="marche" />
+                        <p:selectOneMenu id="marche" value="#{marcheMaterielController.selected.marche}" >
+                            <f:selectItems value="#{marcheController.itemsAvailableSelectOne}"
+                                           var="marcheItem"
+                                           itemValue="#{marcheItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMarcheMaterielLabel_materiel}" for="materiel" />
+                        <p:selectOneMenu id="materiel" value="#{marcheMaterielController.selected.materiel}" >
+                            <f:selectItems value="#{materielController.itemsAvailableSelectOne}"
+                                           var="materielItem"
+                                           itemValue="#{materielItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateMarcheMaterielLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{marcheMaterielController.selected.id}" title="#{bundle.CreateMarcheMaterielTitle_id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{marcheMaterielController.create}" value="#{bundle.Save}" update="display,:MarcheMaterielListForm:datalist,:growl" oncomplete="handleSubmit(args,'MarcheMaterielCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="MarcheMaterielCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

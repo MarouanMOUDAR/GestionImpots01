@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListModelTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <p:panel header="CREATE MARQUE" style="margin-top:20px">
+                        <h:form id="MarqueCreateForm">
+                            <h:panelGroup id="display">
+                                    <p:outputLabel value="Nom:" for="nom" />
+                                    <p:inputText id="nom" value="#{marqueController.marque.nom}" title="Nom" />
+                                    <p:outputLabel value="Id:" for="id" />
+                                    <p:inputText id="id" value="#{marqueController.marque.id}" title="Id" />
+                                <p:commandButton actionListener="#{marqueController.create}" icon="ui-icon-plus" value="ADD" update=":MarqueListForm:datalist , :growl" />
+                            </h:panelGroup>
+                        </h:form>
+                    </p:panel>
+                </div>
+                <div class="ui-g-8">
+                    <p:panel header="EXECUTION CREATION MARQUES" style="margin-top:20px">
+                        <h:form id="MarqueListForm">
+                            <p:dataTable id="datalist" value="#{marqueController.items}" var="item"
+                                         selectionMode="single" selection="#{marqueController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMarqueTitle_nom}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nom==null?'---------':item.nom}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListMarqueTitle_id}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.id==null?'---------':item.id}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:panel>
+
+                </div>
+            </div>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <p:panel header="CREATE MODEL" style="margin-top:20px">
+
+                    </p:panel>
+                </div>
+                <div class="ui-g-8">
+                    <p:panel header="LIST MODEL" style="margin-top:20px">
+
+
+                    </p:panel>
+
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>
